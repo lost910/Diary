@@ -16,22 +16,12 @@
     var userEventID = null;
     var eventDate =null;
 
-    function encode_utf8( s )
-    {
-        return unescape( encodeURIComponent( s ) );
-    }
-
     function getEvent(eventId)
     {
         $.ajax({
             type: "POST",
             data: "eventId="+eventId,
-<<<<<<< HEAD
-            url: "${session_key}/getEvent" ,
-=======
-            url: "${user_id}/getEvent" ,
->>>>>>> origin/master
-            //contentType: 'text/plain; charset=UTF-8',
+            url: "${session_key}/getEvent",
             success: function (data, textStatus)
             {
                 var eventJson = jQuery.parseJSON(data);
@@ -49,11 +39,7 @@
         $.ajax({
             type: "POST",
             data: "id="+ EventID + "&user=" + userEventID + "&theme=" + document.getElementById("tittleEvent").value + "&descr=" + document.getElementById("area").value,
-<<<<<<< HEAD
-            url: "${session_key}/UpdateEvent" ,
-=======
-            url: "${user_id}/UpdateEvent" ,
->>>>>>> origin/master
+            url: "${session_key}/UpdateEvent",
             success: function (data, textStatus)
             {
                 if(data=="done") { location.reload(); }
@@ -66,11 +52,7 @@
         $.ajax({
             type: "POST",
             data: "id="+ EventID,
-<<<<<<< HEAD
-            url: "${session_key}/DeleteEvent" ,
-=======
-            url: "${user_id}/DeleteEvent" ,
->>>>>>> origin/master
+            url: "${session_key}/DeleteEvent",
             success: function (data, textStatus)
             {
                 if(data=="done") { location.reload(); }

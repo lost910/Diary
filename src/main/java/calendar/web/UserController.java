@@ -12,6 +12,9 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 import java.util.Collection;
 import java.util.List;
@@ -36,7 +39,27 @@ public class UserController {
     }
 
     @RequestMapping(value = "/", method = {RequestMethod.GET, RequestMethod.HEAD})
-    public String SignIn(Map<String, Object> model) {
+    public String SignIn(Map<String, Object> model,
+    HttpServletRequest request
+    ) {
+        Cookie[] cooks = request.getCookies();
+        Cookie temp = null;
+        if(cooks!= null){
+            for(Cookie s:cooks)
+            {
+                if(s.getName().equals("DiaryKey")) {
+                    temp = s;
+                    break;
+                }
+            }
+        }
+
+        if(temp!=null) {
+            CSessionManager.CSession s = CSessionManager.findSessionByKey(Long.parseLong(temp.getValue()));
+            if(s!=null){
+                return "redirect:welcome/" + s.getKey();
+            }
+        }
         User user = new User();
         model.put("user", user);
         return "login";
@@ -50,7 +73,9 @@ public class UserController {
     }
 
     @RequestMapping(value = "/", method = RequestMethod.POST)
-    public String processSignIn(@Valid User user, BindingResult result, SessionStatus status) {
+    public String processSignIn(@Valid User user, BindingResult result, SessionStatus status,
+                                HttpServletResponse response
+    ) {
         User tempuser = null;
         if (result.hasErrors()) {
             return "login";
@@ -61,12 +86,14 @@ public class UserController {
             if(!tempuser.getPassword().equals(user.getPassword())) {return "login"; }
 
             status.setComplete();
-<<<<<<< HEAD
+
             CSessionManager.CSession s = CSessionManager.getSession(tempuser.getId());
+
+            Cookie Cook = new Cookie("DiaryKey", String.valueOf(s.getKey()));
+            Cook.setMaxAge(72*60*60);
+            response.addCookie(Cook);
+
             return "redirect:welcome/" + s.getKey();
-=======
-            return "redirect:welcome/" + tempuser.getId();
->>>>>>> origin/master
         }
     }
 

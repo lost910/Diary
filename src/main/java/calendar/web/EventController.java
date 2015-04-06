@@ -62,7 +62,7 @@ public class EventController {
         return "events/eventList";
     }
 
-<<<<<<< HEAD
+
     @RequestMapping("/welcome/{sessionKey}")
     public String showEventListWelcome(@PathVariable("sessionKey") long s_key, Map<String, Object> model) {
         Events events = new Events();
@@ -77,24 +77,11 @@ public class EventController {
         return "welcome";
     }
 
+
     @RequestMapping(value = "welcome/{sessionKey}/getEvent", method = RequestMethod.POST)
     public void handleAjaxRequest(HttpServletResponse res,
                                   @PathVariable("sessionKey") long s_key,
-=======
-    @RequestMapping("/welcome/{userId}")
-    public String showEventListWelcome(@PathVariable("userId") int id, Map<String, Object> model) {
-        Events events = new Events();
-        events.getCEventList().addAll(this.cs.getEventsByLinkedId(id));
-        model.put("events", events);
-        model.put("user_id", id);
-        model.put("user_login", cs.findUserById(id).getLogin());
-        return "welcome";
-    }
 
-    @RequestMapping(value = "welcome/{userId}/getEvent", method = RequestMethod.POST)
-    public void handleAjaxRequest(HttpServletResponse res,
-                                  @PathVariable("userId") int UserId,
->>>>>>> origin/master
                                   @RequestParam(value = "eventId") int id) {
         try{
            CEvent CEvent = this.cs.findEventById(id);
@@ -165,14 +152,11 @@ public class EventController {
         return "CreateEvent";
     }
 
-<<<<<<< HEAD
+
     @RequestMapping(value = "welcome/{sessionKey}/UpdateEvent",
             method = RequestMethod.POST, produces = "text/plain;charset=UTF-8")
     public void UpdateEvent(HttpServletResponse res, @PathVariable("sessionKey") long s_key,
-=======
-    @RequestMapping(value = "welcome/{userId}/UpdateEvent", method = RequestMethod.POST, produces = "text/plain;charset=UTF-8")
-    public void UpdateEvent(HttpServletResponse res, @PathVariable("userId") int userId,
->>>>>>> origin/master
+
                             @RequestParam(value = "id") int id,
                             @RequestParam(value = "user") int user,
                             @RequestParam(value = "theme") String theme,
@@ -195,14 +179,11 @@ public class EventController {
         }
     }
 
-<<<<<<< HEAD
+
     @RequestMapping(value = "welcome/{sessionKey}/DeleteEvent", method = RequestMethod.POST)
     public void DeleteEvent(HttpServletResponse res, @PathVariable("sessionKey") long s_key,
                             @RequestParam(value = "id") int id){
-=======
-    @RequestMapping(value = "welcome/{userId}/DeleteEvent", method = RequestMethod.POST)
-    public void DeleteEvent(HttpServletResponse res, @PathVariable("userId") int userId, @RequestParam(value = "id") int id){
->>>>>>> origin/master
+
         try{
             this.cs.deleteEventById(id);
             res.getWriter().write("done");
