@@ -4,12 +4,12 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
-<html lang="en">
+<html lang="ru">
 <jsp:include page="fragments/staticFiles.jsp"/>
 
 <body>
 <div class="container">
-    <jsp:include page="fragments/bodyHeader.jsp"/>
+
 
     <h2>Что за х...</h2>
 
@@ -21,8 +21,6 @@
 			</c:forEach>
 	  	-->
 
-
-    <jsp:include page="fragments/footer.jsp"/>
 
 </div>
 </body>

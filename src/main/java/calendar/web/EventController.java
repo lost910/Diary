@@ -54,15 +54,6 @@ public class EventController {
         dataBinder.setDisallowedFields("id");
     }
 
-    @RequestMapping("/events")
-    public String showEventList(Map<String, Object> model) {
-        Events events = new Events();
-        events.getCEventList().addAll(this.cs.getAllEvent());
-        model.put("events", events);
-        return "events/eventList";
-    }
-
-
     @RequestMapping("/welcome/{sessionKey}")
     public String showEventListWelcome(@PathVariable("sessionKey") long s_key, Map<String, Object> model) {
         Events events = new Events();
@@ -104,49 +95,6 @@ public class EventController {
         }
     }
 
-    @RequestMapping(value = "users/{userId}/events/new", method = RequestMethod.GET)
-    public String initCreationForm(@PathVariable("userId") int userId,
-                                   Map<String, Object> model) {
-        User user = this.cs.findUserById(userId);
-        CEvent CEvent = new CEvent();
-        model.put("CEvent", CEvent);
-        return "events/createOrUpdateEventForm";
-    }
-
-    @RequestMapping(value = "/users/{userId}/events/new", method = RequestMethod.POST)
-    public String processCreationForm(@ModelAttribute("event") CEvent CEvent,
-                                      BindingResult result, SessionStatus status) {
-        new EventValidator().validate(CEvent, result);
-        if (result.hasErrors()) {
-            return "events/createOrUpdateEventForm";
-        } else {
-            this.cs.saveEvent(CEvent);
-            status.setComplete();
-            return "redirect:/events/{eventId}";
-        }
-    }
-
-    @RequestMapping(value = "/users/*/events/{eventId}/edit", method = RequestMethod.GET)
-    public String initUpdateForm(@PathVariable("eventId") int eventId, Map<String, Object> model) {
-        CEvent CEvent = this.cs.findEventById(eventId);
-        model.put("CEvent", CEvent);
-        return "events/createOrUpdateEventForm";
-    }
-
-    @RequestMapping(value = "/users/{userId}/events/{eventId}/edit", method = {RequestMethod.PUT, RequestMethod.POST})
-    public String processUpdateForm(@ModelAttribute("event") CEvent CEvent,
-                                    BindingResult result, SessionStatus status) {
-
-        new EventValidator().validate(CEvent, result);
-        if (result.hasErrors()) {
-            return "events/createOrUpdateEventForm";
-        } else {
-            this.cs.saveEvent(CEvent);
-            status.setComplete();
-            return "redirect:/events/{eventId}";
-        }
-    }
-
     @RequestMapping(value = "welcome/{sessionKey}/CreateEvent", method = RequestMethod.GET)
     public String initCrEv(@PathVariable("sessionKey") long s_key,
                            Map<String, Object> model) {
@@ -179,16 +127,13 @@ public class EventController {
                             @RequestParam(value = "theme") String theme,
                             @RequestParam(value = "descr") String descr){
         try{
-//            int userId = CSessionManager.findSessionByKey(s_key).getUser_id();
             CEvent UpdateEvent = cs.findEventById(id);
-
             UpdateEvent.setDescr(descr);
             UpdateEvent.setTheme(theme);
             cs.saveEvent(UpdateEvent);
 
             res.setContentType("text/html; charset=UTF-8");
-            res.setCharacterEncoding( "UTF-8" );
-
+            res.setCharacterEncoding("UTF-8");
             res.getWriter().write("done");
 
         } catch (IOException e) {

@@ -65,13 +65,6 @@ public class UserController {
         return "login";
     }
 
-    @RequestMapping(value = "/users/new", method = RequestMethod.GET)
-    public String initCreationForm(Map<String, Object> model) {
-        User user = new User();
-        model.put("user", user);
-        return "users/createOrUpdateUserForm";
-    }
-
     @RequestMapping(value = "/", method = RequestMethod.POST)
     public String processSignIn(@Valid User user, BindingResult result, SessionStatus status,
                                 HttpServletResponse response
@@ -97,54 +90,6 @@ public class UserController {
         }
     }
 
-    @RequestMapping(value = "/users/find", method = RequestMethod.GET)
-    public String initFindForm(Map<String, Object> model) {
-        model.put("user", new User());
-        return "users/findUsers";
-    }
-
-    @RequestMapping(value = "/users", method = RequestMethod.GET)
-    public String processFindForm(User user, BindingResult result, Map<String, Object> model) {
-
-        if (user.getLogin() == null) {
-            throw new NullPointerException();
-        }
-
-        User rs = this.cs.findUserByLogin(user.getLogin());
-        if (rs == null) {
-            result.rejectValue("Login", "notFound", "not found");
-            return "users/findUsers";
-        }
-        else {
-            user = rs;
-            return "redirect:/users/" + user.getId();
-        }
-    }
-
-    @RequestMapping(value = "/users/{userId}/edit", method = RequestMethod.GET)
-    public String initUpdateUserForm(@PathVariable("userId") int userId, Model model) {
-        User user = this.cs.findUserById(userId);
-        model.addAttribute(user);
-        return "users/createOrUpdateUserForm";
-    }
-
-    @RequestMapping(value = "/users/{userId}/edit", method = RequestMethod.PUT)
-    public String processUpdateUserForm(@Valid User user, BindingResult result, SessionStatus status) {
-        if (result.hasErrors()) {
-            return "users/createOrUpdateUserForm";
-        } else {
-            this.cs.saveUser(user);
-            status.setComplete();
-            return "redirect:/users/{userId}";
-        }
-    }
-
-    @RequestMapping("/users/{userId}")
-    public ModelAndView showUser(@PathVariable("userId") int userId) {
-        ModelAndView mav = new ModelAndView("users/userDetails");
-        mav.addObject(this.cs.findUserById(userId));
-        return mav;
-    }
 
     @RequestMapping(value = "/registration", method = RequestMethod.POST)
     public String processRegistration(@Valid User user, BindingResult result, SessionStatus status,

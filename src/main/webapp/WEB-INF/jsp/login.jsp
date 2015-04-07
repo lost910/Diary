@@ -14,25 +14,28 @@
 
 <body>
 
-<c:choose>
-    <c:when test="${user['new']}"><c:set var="method" value="post"/></c:when>
-    <c:otherwise><c:set var="method" value="put"/></c:otherwise>
-</c:choose>
-
-<form:form modelAttribute="user" methodParam="GET">
-    <cs:inputField label="Login" name="login"/>
-    <cs:inputField label="Password" name="password"/>
-    <c:choose>
-        <c:when test="${user['new']}">
-            <button type="submit">Add User</button>
-        </c:when>
-        <c:otherwise>
-            <button type="submit">Update User</button>
-        </c:otherwise>
-    </c:choose>
-</form:form>
-
-<a href="/registration">Go k nam!</a>
-
+<div id="wrap">
+    <div class="LoginBody">
+        <div class="description">
+            <div class="descr">
+                <h1>Добро пожаловать в Diary</h1>
+                <p>
+                    Организуйте свою жизнь вместе с нами!
+                    Diary это рабочее пространство для ежедневных заметок, записей, мыслей.
+                    Храните все в одном месте.
+                </p>
+                <a class="registr" href="/registration">Присоединиться</a>
+            </div>
+        </div>
+        <div class="loginForm">
+            <h1>Авторизация</h1>
+            <form:form modelAttribute="user" methodParam="GET" class="formMain">
+                <p><form:input path="login" class="li" id="login" name="login" type="text" placeholder="Login"/></p>
+                <p><form:input path="password"  class="li" id="password"  name="password" placeholder="Password" type="password"/></p>
+                <input type="submit" value="Войти"/>
+            </form:form>
+        </div>
+    </div>
+</div>
 </body>
 </html>

@@ -78,9 +78,7 @@
     </div>
     <div id="main">
         <div class="leftbar">
-
-            <a href="${session_key}/CreateEvent">Add Owner</a>
-
+            <a href="${session_key}/CreateEvent" class="btn">Создать запись</a>
             <ul>
                 <c:forEach items="${events.CEventList}" var="item">
                     <li>
@@ -92,7 +90,7 @@
                 </c:forEach>
             </ul>
 
-            <p class="triangle-border top">Сегодня напоминаний нет...</p>
+            <!--<p class="triangle-border top">Сегодня напоминаний нет...</p>-->
 
         </div>
         <div class="rightbar">
@@ -101,17 +99,15 @@
                     <input type="text" class="line" id="tittleEvent" value="">
                 </div>
                 <div class="rightpanel">
-                    <a href="#" onclick="DeleteEvent()" class="btnpanels2">Delete</a>
-                    <a href="#" onclick="UpdateEvent()" class="btnpanels">Save</a>
+                    <a href="#" onclick="DeleteEvent()" class="btnpanels2">Удалить</a>
+                    <a href="#" onclick="UpdateEvent()" class="btnpanels">Сохранить</a>
                 </div>
 
             </div>
             <textarea style="font-family:arial;" class="area" id="area" name="text"></textarea>
         </div>
     </div>
-    <div id="footer">
-
-    </div>
+    <div id="footer"></div>
 </div>
 </body>
 </html>

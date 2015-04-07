@@ -1,4 +1,16 @@
-@import url(http://fonts.googleapis.com/css?family=Lato:300,400,700);
+@import url(http://fonts.googleapis.com/css?family=Lobster&subset=latin,latin-ext,cyrillic);      /*font-family: 'Lobster', cursive;*/
+@import url(http://fonts.googleapis.com/css?family=Marck+Script&subset=latin,latin-ext,cyrillic); /*font-family: 'Marck Script', cursive;*/
+@import url(http://fonts.googleapis.com/css?family=Lato:300,400,700); /*font-family: "Lato", Calibri, Arial, sans-serif;*/
+
+
+input {
+    border: none;
+    font-family: inherit;
+    font-size: inherit;
+    font-weight: inherit;
+    line-height: inherit;
+    -webkit-appearance: none;
+}
 
 ::-webkit-scrollbar{
     width:12px;
@@ -125,7 +137,7 @@ h1{
 .leftbar ul {
 	overflow: auto;
 	overflow-x: hidden;
-	height: 350px; 
+	height: 430px;
     display: block;
     background: #f0f0f0;
     background: rgba(0,0,0,0.06);
@@ -317,4 +329,117 @@ h1{
     #wrapper {width: 1000px;}
     .CreateArea {width: 980px;}
     .text {width: 1000px;}
+}
+
+
+/*--login--*/
+
+#wrap {
+    width: 1000px;
+    margin: 10px auto;
+}
+
+.LoginBody {
+    margin: 100px auto;
+    width: 900px;
+    background: #f8f8f8;
+    background: rgba(255,255,255,0.5);
+    border: 1px solid rgba(255,255,255,0.4);
+    overflow: auto;
+    height: 400px;
+
+
+
+    -webkit-box-shadow:0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
+    -moz-box-shadow:0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
+    box-shadow:0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
+}
+
+
+.description {
+    float: left;
+    width: 460px;
+    padding: 20px;
+    padding-top: 80px;
+}
+
+.descr {
+    border-right: 1px solid rgba(0, 0, 0, 0.4);
+    width: 430px;
+}
+
+.description h1 {
+    font-size: 30px;
+    font-family: 'Marck Script', cursive;
+}
+
+.description p {
+    font-size: 20px;
+    font-family: 'Marck Script', cursive;
+    width: 380px;
+}
+
+.loginForm {
+    float: right;
+    width: 370px;
+    font-family: 'Marck Script', cursive;
+    padding-top: 100px;
+}
+
+.li {
+    width: 300px;
+    height: 45px;
+    padding: 2px;
+    font-size: 20px;
+    display: block;
+    border: none;
+    color: #333;
+    background: transparent;
+    border-bottom: 1px dotted black;
+    padding: 5px 2px 0 2px;
+
+    font-family: 'Marck Script', cursive;
+}
+
+.li:focus {
+    outline: none;
+    border-color: #51CBEE;
+}
+
+
+.formMain {
+    width: 300px;
+}
+
+.loginForm input[type="submit"] {
+    background-color: #97CAF2;
+    color: #fff;
+    display: block;
+    margin: 10px auto;
+    padding: 4px 0;
+    width: 100px;
+    cursor:pointer;
+}
+
+.loginForm input[type="submit"]:hover {
+    background-color: #51CBEE;
+}
+
+.registr {
+    background-color: #97CAF2;
+    color: #fff;
+    display: block;
+    padding: 4px 0;
+    width: 150px;
+    font-size: 20px;
+    height: 25px;
+    margin-left: 100px;
+    margin-top: 30px;
+    text-align: center;
+    font-family: 'Marck Script', cursive;
+}
+
+
+.registr:hover {
+    background-color: #51CBEE;
 }
