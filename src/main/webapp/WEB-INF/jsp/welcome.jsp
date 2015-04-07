@@ -5,6 +5,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="joda" uri="http://www.joda.org/joda/time/tags" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
@@ -14,7 +15,7 @@
 <script type="text/javascript">
     var EventID = null;
     var userEventID = null;
-    var eventDate =null;
+    var eventDate = null;
 
     function getEvent(eventId)
     {
@@ -77,7 +78,8 @@
     </div>
     <div id="main">
         <div class="leftbar">
-            <a href="/CreateEvent" class="btn">Create record/reminder</a>
+
+            <a href="${session_key}/CreateEvent">Add Owner</a>
 
             <ul>
                 <c:forEach items="${events.CEventList}" var="item">

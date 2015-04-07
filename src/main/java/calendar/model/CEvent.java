@@ -1,5 +1,6 @@
 package calendar.model;
 
+import com.sun.istack.NotNull;
 import org.hibernate.annotations.Type;
 import org.hibernate.validator.constraints.NotEmpty;
 import org.joda.time.DateTime;
@@ -24,7 +25,7 @@ public class CEvent extends BaseEntity {
     @Column(name="cr_date")
     @Type(type = "org.jadira.usertype.dateandtime.joda.PersistentDateTime")
     @DateTimeFormat(pattern = "yyyy/MM/dd")
-    @NotEmpty
+    @NotNull
     protected DateTime cr_date;
 
     @ManyToOne

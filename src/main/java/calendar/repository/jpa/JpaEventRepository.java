@@ -2,6 +2,7 @@ package calendar.repository.jpa;
 
 import calendar.model.CEvent;
 import calendar.repository.EventRepository;
+import org.joda.time.DateTime;
 import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Repository;
 
@@ -48,12 +49,14 @@ public class JpaEventRepository implements EventRepository {
         if(event.getId() == null) {
             this.em.persist(event);
         } else {
+            this.em.merge(event);
+            /*
             Query query = this.em.createQuery("UPDATE CEvent e SET e.theme=:theme," +
                     "e.descr=:descr WHERE e.id=:id");
             query.setParameter("theme", event.getTheme());
             query.setParameter("descr", event.getDescr());
             query.setParameter("id", event.getId());
-            query.executeUpdate();
+            query.executeUpdate();*/
         }
     }
 }

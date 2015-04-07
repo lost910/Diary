@@ -147,10 +147,26 @@ public class EventController {
         }
     }
 
-    @RequestMapping("/CreateEvent")
-    public String CreateEvent(Map<String, Object> model) {
-
+    @RequestMapping(value = "welcome/{sessionKey}/CreateEvent", method = RequestMethod.GET)
+    public String initCrEv(@PathVariable("sessionKey") long s_key,
+                           Map<String, Object> model) {
+        CEvent event = new CEvent();
+        model.put("event", event);
         return "CreateEvent";
+    }
+
+    @RequestMapping(value = "welcome/{sessionKey}/CreateEvent", method = RequestMethod.POST)
+    public String processCrEv(@PathVariable("sessionKey") long s_key,
+                              @ModelAttribute("event") CEvent event,
+                              BindingResult result, SessionStatus status) {
+
+        User user = cs.findUserById(CSessionManager.findSessionByKey(s_key).getUser_id());
+        event.setUser(user);
+        event.setCr_date(DateTime.now());
+
+        this.cs.saveEvent(event);
+        status.setComplete();
+        return "redirect:/";
     }
 
 

@@ -28,6 +28,10 @@
     <div id="main">
         <div class="text">
 
+            <c:choose>
+                <c:when test="${event['new']}"><c:set var="method" value="post"/></c:when>
+                <c:otherwise><c:set var="method" value="put"/></c:otherwise>
+            </c:choose>
 
             <form:form modelAttribute="event" methodParam="GET">
                 <table>
@@ -40,8 +44,8 @@
                     <tr>
                         <td colspan="2">
                             <c:choose>
-                                <c:when test="${user['new']}">
-                                    <button type="submit">Add Event</button>
+                                <c:when test="${event['new']}">
+                                    <button type="submit">Add User</button>
                                 </c:when>
                                 <c:otherwise>
                                     <button type="submit">Update User</button>
