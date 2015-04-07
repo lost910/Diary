@@ -149,6 +149,7 @@ public class EventController {
 
     @RequestMapping("/CreateEvent")
     public String CreateEvent(Map<String, Object> model) {
+
         return "CreateEvent";
     }
 

@@ -32,5 +32,7 @@
     </c:choose>
 </form:form>
 
+<a href="/registration">Go k nam!</a>
+
 </body>
 </html>

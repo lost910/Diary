@@ -145,4 +145,24 @@ public class UserController {
         mav.addObject(this.cs.findUserById(userId));
         return mav;
     }
+
+    @RequestMapping(value = "/registration", method = RequestMethod.POST)
+    public String processRegistration(@Valid User user, BindingResult result, SessionStatus status,
+                                HttpServletResponse response){
+        cs.saveUser(user);
+        CSessionManager.CSession s = CSessionManager.getSession(user.getId());
+        Cookie Cook = new Cookie("DiaryKey", String.valueOf(s.getKey()));
+        Cook.setMaxAge(72*60*60);
+        response.addCookie(Cook);
+        status.setComplete();
+        return "redirect:welcome/" + s.getKey();
+    }
+
+    @RequestMapping("/registration")
+    public String Registration(Map<String, Object> model,
+                         HttpServletRequest request){
+        User user = new User();
+        model.put("user", user);
+        return "registration";
+    }
 }
