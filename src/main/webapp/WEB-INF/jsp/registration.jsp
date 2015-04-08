@@ -11,38 +11,55 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 <jsp:include page="fragments/staticFiles.jsp"/>
-
+<script type="text/javascript">
+    function Registration()
+    {
+        if(document.getElementById("login").value != null && document.getElementById("password").value != null && document.getElementById("password_repeat").value != null){
+            if(document.getElementById("password").value == document.getElementById("password_repeat").value){
+            $.ajax({
+                type: "POST",
+                data: "login=" + document.getElementById("login").value + "&password=" + document.getElementById("password").value,
+                url: "registrationProcess",
+                success: function (data, textStatus) {
+                    if(data == "done") {
+                        location.replace("/");
+                    }
+                    else{
+                        $('#erorr').empty();
+                        $('#erorr').append(data);
+                    }
+                }
+            });
+            }
+            else {
+                $('#erorr').empty();
+                $('#erorr').append('Введенные пороли не совпадают!');
+            }
+        }
+        else{
+            $('#erorr').empty();
+            $('#erorr').append('Не заполено одно из полей!');
+        }
+    }
+</script>
 <body>
-<c:choose>
-    <c:when test="${user['new']}"><c:set var="method" value="post"/></c:when>
-    <c:otherwise><c:set var="method" value="put"/></c:otherwise>
-</c:choose>
-
-    <form:form modelAttribute="user" methodParam="GET">
-        <table>
-            <tr>
-                <td><form:label path="login">Логин</form:label></td>
-                <td><form:input path="login" name="login"/></td>
-            </tr>
-            <tr>
-                <td><form:label path="password">Пароль</form:label></td>
-                <td><form:input path="password" name="password"/></td>
-            </tr>
-            <tr>
-                <td colspan="2">
-                    <c:choose>
-                        <c:when test="${user['new']}">
-                            <button type="submit">Add User</button>
-                        </c:when>
-                        <c:otherwise>
-                            <button type="submit">Update User</button>
-                        </c:otherwise>
-                    </c:choose>
-                </td>
-            </tr>
-        </table>
-    </form:form>
-
-
+<div id="wrap">
+    <div class="RegistrationBody">
+        <h1>Diary</h1>
+        <div class="clr"></div>
+        <h2>Быстрая регистрация</h2>
+        <div class="clr"></div>
+        <div class="RegistrationForm">
+            <form id="user" action="/registration" method="post" class="formMain">
+                <p><input class="li" id="login" name="login" type="text" placeholder="Login" value=""/></p>
+                <p><input class="li" id="password" name="password" placeholder="Password" type="password" value=""/></p>
+                <p><input class="li" id="password_repeat" name="password_repeat" placeholder="Repeat password" type="password" value=""/></p>
+                <!--<input type="submit" value="Зарегестрироваться"/>-->
+                <a href="#" onclick="Registration()" class="btn">Зарегестрироваться</a>
+            </form>
+            <div class="errorRegForm" id="erorr"></div>
+        </div>
+    </div>
+</div>
 </body>
 </html>

@@ -16,6 +16,7 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
+import java.io.IOException;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
@@ -91,23 +92,50 @@ public class UserController {
     }
 
 
-    @RequestMapping(value = "/registration", method = RequestMethod.POST)
-    public String processRegistration(@Valid User user, BindingResult result, SessionStatus status,
-                                HttpServletResponse response){
-        cs.saveUser(user);
-        CSessionManager.CSession s = CSessionManager.getSession(user.getId());
-        Cookie Cook = new Cookie("DiaryKey", String.valueOf(s.getKey()));
-        Cook.setMaxAge(72*60*60);
-        response.addCookie(Cook);
-        status.setComplete();
-        return "redirect:welcome/" + s.getKey();
+    @RequestMapping(value = "/registrationProcess", method = RequestMethod.POST)
+    public void processRegistration(HttpServletRequest request, HttpServletResponse response){
+        String login = request.getParameter("login");
+        String pass = request.getParameter("password");
+        response.setContentType("text/html; charset=UTF-8");
+        response.setCharacterEncoding( "UTF-8" );
+        try {
+            if(cs.findUserByLogin(login) == null) {
+
+                User user = new User();
+                user.setLogin(login);
+                user.setPassword(pass);
+                cs.saveUser(user);
+
+                CSessionManager.CSession s = CSessionManager.getSession(user.getId());
+                Cookie Cook = new Cookie("DiaryKey", String.valueOf(s.getKey()));
+                Cook.setMaxAge(72 * 60 * 60);
+                response.addCookie(Cook);
+
+                response.getWriter().write("done");
+            }
+            else {
+                response.getWriter().write("Пользователь с логином " + login + " уже занят");
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     @RequestMapping("/registration")
-    public String Registration(Map<String, Object> model,
-                         HttpServletRequest request){
-        User user = new User();
-        model.put("user", user);
+    public String Registration(){
         return "registration";
+    }
+
+    @RequestMapping(value = "welcome/signout", method = RequestMethod.POST)
+    public void SignOut(@RequestParam(value = "key") long s_key, HttpServletResponse response){
+        response.setContentType("text/html; charset=UTF-8");
+        response.setCharacterEncoding( "UTF-8" );
+        try {
+            CSessionManager.RemoveSessionByKey(s_key);
+            response.getWriter().write("done");
+        }
+        catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

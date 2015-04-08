@@ -21,7 +21,7 @@
             <form:input name="theme" path="theme" cssClass="CreateInput"/>
             <p>Text</p>
             <form:textarea name="descr" path="descr" class="CreateArea"/>
-            <input type="submit" value="Создать запись"/>
+            <input type="submit" value="Save"/>
         </form:form>
     </div>
 </div>

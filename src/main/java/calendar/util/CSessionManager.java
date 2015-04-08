@@ -71,4 +71,15 @@ public class CSessionManager {
 
         return null;
     }
+
+    public static void RemoveSessionByKey(long key) {
+        /*for(CSession s : sessions) {
+            if(s.getKey() == key) {
+                sessions.remove(s);
+            }
+        }*/
+        for(int i=0; i < sessions.size(); i++) {
+            if (sessions.get(i).getKey() == key) sessions.remove(i);
+        }
+    }
 }

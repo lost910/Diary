@@ -61,6 +61,19 @@
         });
     }
 
+    function signOut() {
+        document.cookie = "DiaryKey" + "=" + "; expires=Thu, 01 Jan 1970 00:00:01 GMT";
+        $.ajax({
+            type: "POST",
+            data: "key="+ ${session_key},
+            url: "signout",
+            success: function (data, textStatus)
+            {
+                //if(data=="done") { location.replace("/"); }
+            }
+        });
+    }
+
 </script>
 
 <body>
@@ -73,6 +86,7 @@
                 <img src="${avatar}" />
             </div>
             <p>${user_login}</p>
+            <a href="#" onclick="signOut()" class="btn">Выход</a>
         </div>
         <div class="clr"></div>
     </div>

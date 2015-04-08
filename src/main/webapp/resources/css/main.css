@@ -511,3 +511,67 @@ h1{
 .CreateEventBody input[type="submit"]:hover {
     background-color: #51CBEE;
 }
+
+/*--Registration--*/
+
+.RegistrationBody {
+    margin: 100px auto;
+    width: 900px;
+    background: #f8f8f8;
+    background: rgba(255,255,255,0.5);
+    border: 1px solid rgba(255,255,255,0.4);
+    overflow: auto;
+    height: 400px;
+    font-family: 'Marck Script', cursive;
+    padding: 20px;
+
+
+    -webkit-box-shadow:0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
+    -moz-box-shadow:0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
+    box-shadow:0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
+}
+
+.RegistrationBody p {
+    font-size: 20px;
+    color: #838383;
+}
+
+.RegistrationBody h1 {
+    float: right;
+}
+.RegistrationBody h2 {
+    font-size: 35px;
+    line-height: 43px;
+    font-weight: 300;
+    color: #666;
+    text-shadow: 0 1px 1px rgba(255,255,255,0.6);
+    font-weight: bold;
+    font-stretch: extra-condensed;
+    text-align: center;
+    margin-top: 50px;
+}
+
+.RegistrationForm {
+    width: 300px;
+    margin: 0 auto;
+}
+
+.RegistrationForm a {
+    background-color: #97CAF2;
+    color: #fff;
+    display: block;
+    margin: 10px auto;
+    padding: 4px 0;
+    width: 150px;
+    cursor:pointer;
+}
+
+.RegistrationForm a:hover {
+    background-color: #51CBEE;
+}
+
+.errorRegForm {
+    font-size: 16px;
+    color: #c82d1d;
+
+}
