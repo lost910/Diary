@@ -98,6 +98,7 @@ public class EventController {
     @RequestMapping(value = "welcome/{sessionKey}/CreateEvent", method = RequestMethod.GET)
     public String initCrEv(@PathVariable("sessionKey") long s_key,
                            Map<String, Object> model) {
+
         CEvent event = new CEvent();
         model.put("event", event);
         return "CreateEvent";
@@ -108,10 +109,12 @@ public class EventController {
                               @ModelAttribute("event") CEvent event,
                               BindingResult result, SessionStatus status) {
 
+
         User user = cs.findUserById(CSessionManager.findSessionByKey(s_key).getUser_id());
         event.setUser(user);
         event.setCr_date(DateTime.now());
-
+        event.setTheme(UTF8Plantain.Repair(event.getTheme()));
+        event.setDescr(UTF8Plantain.Repair(event.getDescr()));
         this.cs.saveEvent(event);
         status.setComplete();
         return "redirect:/";

@@ -443,3 +443,71 @@ h1{
 .registr:hover {
     background-color: #51CBEE;
 }
+
+/*--CreateEvent--*/
+
+.CreateEventBody {
+    margin: 50px auto;
+    width: 960px;
+    background: #f8f8f8;
+    background: rgba(255,255,255,0.5);
+    border: 1px solid rgba(255,255,255,0.4);
+    overflow: auto;
+    height: 510px;
+    padding: 20px;
+
+    -webkit-box-shadow:0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
+    -moz-box-shadow:0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
+    box-shadow:0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
+}
+
+.CreateEventBody p {
+    font-family: 'Marck Script', cursive;
+    font-size: 20px;
+    color: #838383;
+}
+
+.CreateEventBody h1 {
+    float: right;
+    font-family: 'Marck Script', cursive;
+}
+
+.CreateArea {
+    width: 940px;
+    height: 340px;
+    padding: 10px;
+    font-size: 14px;
+    background: #f8f8f8;
+    background: rgba(255,255,255,0.3);
+    border: 1px solid rgba(0,0,0,0.1);
+    font-family:arial;
+}
+
+.CreateInput {
+    width: 400px;
+    height: 30px;
+    padding: 2px;
+    font-size: 14px;
+    background: #f8f8f8;
+    background: rgba(255,255,255,0.3);
+    border: 1px solid rgba(0,0,0,0.1);
+    font-size: 20px;
+    font-family:arial;
+}
+
+.CreateEventBody input[type="submit"] {
+    background-color: #97CAF2;
+    color: #fff;
+    display: block;
+    margin: 10px auto;
+    padding: 4px 0;
+    width: 150px;
+    cursor:pointer;
+    float: right;
+    font-size: 20px;
+    font-family: 'Marck Script', cursive;
+}
+
+.CreateEventBody input[type="submit"]:hover {
+    background-color: #51CBEE;
+}
