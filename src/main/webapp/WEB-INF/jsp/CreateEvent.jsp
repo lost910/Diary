@@ -8,7 +8,7 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="cs" tagdir="/WEB-INF/tags" %>
 
-<%@ page contentType="text/html;charset=windows-1257" language="java"%>
+<%@ page pageEncoding="UTF-8" contentType="text/html; charset=windows-1257" %>
 
 <jsp:include page="fragments/staticFiles.jsp"/>
 

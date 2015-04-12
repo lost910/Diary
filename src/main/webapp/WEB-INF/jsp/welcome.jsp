@@ -60,68 +60,55 @@
             }
         });
     }
-
-    function signOut() {
-        document.cookie = "DiaryKey" + "=" + "; expires=Thu, 01 Jan 1970 00:00:01 GMT";
-        $.ajax({
-            type: "POST",
-            data: "key="+ ${session_key},
-            url: "signout",
-            success: function (data, textStatus)
-            {
-                //if(data=="done") { location.replace("/"); }
-            }
-        });
-    }
-
 </script>
-
+<spring:url value="/resources/images/exit.png" var="exit"/>
+<spring:url value="/resources/images/file.png" var="file"/>
+<spring:url value="/resources/images/del.png" var="del"/>
 <body>
-<div id="wrapper">
-    <div id="header">
-        <div class="logo"><h1>Diary</h1></div>
-        <div class="loginBox">
-            <div class="userImg">
-                <spring:url value="/resources/images/ava.png" var="avatar"/>
-                <img src="${avatar}" />
-            </div>
-            <p>${user_login}</p>
-            <a href="#" onclick="signOut()" class="btn">Выход</a>
-        </div>
-        <div class="clr"></div>
-    </div>
-    <div id="main">
-        <div class="leftbar">
-            <a href="${session_key}/CreateEvent" class="btn">Создать запись</a>
+<div id="header">
+    <div class="headerWrap">
+        <div class="logo">Diary</div>
+        <div class="rightPanel">
             <ul>
-                <c:forEach items="${events.CEventList}" var="item">
-                    <li>
-                        <a onclick="getEvent(${item.id})" href="#">
-                            <c:out value="${item.theme}"/><br />
-                            <span class="dateTime"><joda:format value="${item.cr_date}" pattern="dd.MM.yyyy HH:mm:ss"/></span>
-                        </a>
-                    </li>
-                </c:forEach>
+                <li><span>Привет, ${user_login}!</span></li>
+                <li><a href="${session_key}/signout"><img src="${exit}" width="50" height="50"/></a></li>
             </ul>
-
-            <!--<p class="triangle-border top">Сегодня напоминаний нет...</p>-->
-
-        </div>
-        <div class="rightbar">
-            <div class="title">
-                <div class="leftpanel">
-                    <input type="text" class="line" id="tittleEvent" value="">
-                </div>
-                <div class="rightpanel">
-                    <a href="#" onclick="DeleteEvent()" class="btnpanels2">Удалить</a>
-                    <a href="#" onclick="UpdateEvent()" class="btnpanels">Сохранить</a>
-                </div>
-
-            </div>
-            <textarea style="font-family:arial;" class="area" id="area" name="text"></textarea>
         </div>
     </div>
-    <div id="footer"></div>
+    <div id="wrapper">
+        <a href="${session_key}/CreateEvent" class="btn">Создать запись</a>
+        <ul class="eventList">
+            <c:forEach items="${events.CEventList}" var="item">
+                <li onclick="getEvent(${item.id})">
+                    <c:out value="${item.theme}"/><br />
+                    <span class="dateTime"><joda:format value="${item.cr_date}" pattern="dd.MM.yyyy HH:mm:ss"/></span>
+                    </a>
+                </li>
+            </c:forEach>
+        </ul>
+        <div class="content">
+            <div class="contentPanel">
+                <input type="text" id="tittleEvent" value="">
+                <a href="#" onclick="DeleteEvent()" class="btnpanels2">Удалить</a>
+                <a href="#" onclick="UpdateEvent()" class="btnpanels">Сохранить</a>
+            </div>
+            <textarea placeholder="Выберите запись..." id="area" name="text"></textarea>
+        </div>
+        <div class="rightBar">
+            <img src="${file}" width="100" height="80"/>
+            <p>Личное файловое хранилище.</p>
+            <form method="POST" action="/put" enctype="multipart/form-data">
+                <input id="FileValue" type="text"/>
+                <span class="file_upload">+<input type="file" onchange="document.getElementById('FileValue').value = this.value"/></span>
+                <input type="submit" value="Добавить" />
+            </form>
+            <ul class="rightBarlist">
+                <li>Relaxation.pdf<br /><span class="fileclass">pdf / 500kb</span>
+                    <a class="delfile" href="#"><img src="${del}" width="16" height="16"/></a>
+                </li>
+            </ul>
+        </div>
+    </div>
 </div>
 </body>
 </html>

@@ -126,16 +126,9 @@ public class UserController {
         return "registration";
     }
 
-    @RequestMapping(value = "welcome/signout", method = RequestMethod.POST)
-    public void SignOut(@RequestParam(value = "key") long s_key, HttpServletResponse response){
-        response.setContentType("text/html; charset=UTF-8");
-        response.setCharacterEncoding( "UTF-8" );
-        try {
-            CSessionManager.RemoveSessionByKey(s_key);
-            response.getWriter().write("done");
-        }
-        catch (IOException e) {
-            e.printStackTrace();
-        }
+    @RequestMapping(value = "welcome/{sessionKey}/signout", method = RequestMethod.GET)
+    public String SignOut( @PathVariable("sessionKey") long s_key, HttpServletResponse response){
+        CSessionManager.RemoveSessionByKey(s_key);
+        return "redirect:/";
     }
 }

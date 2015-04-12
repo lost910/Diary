@@ -35,6 +35,7 @@ public class CSessionManager {
     }
 
     private static final List<CSession> sessions = new ArrayList<CSession>();
+   // private static List<CSession> sessions;
 
     private static long makeKey() {
         Random rnd = new Random();
@@ -55,6 +56,7 @@ public class CSessionManager {
 
     public static CSession getSession(int user_id) {
 
+       // if(sessions == null) sessions = new ArrayList<CSession>();
         for(CSession s : sessions) {
             if(s.getUser_id() == user_id) return s;
         }
@@ -65,6 +67,7 @@ public class CSessionManager {
     }
 
     public static CSession findSessionByKey(long key) {
+       // if(sessions == null) sessions = new ArrayList<CSession>();
         for(CSession s : sessions) {
             if(s.getKey() == key) return s;
         }
@@ -73,13 +76,6 @@ public class CSessionManager {
     }
 
     public static void RemoveSessionByKey(long key) {
-        /*for(CSession s : sessions) {
-            if(s.getKey() == key) {
-                sessions.remove(s);
-            }
-        }*/
-        for(int i=0; i < sessions.size(); i++) {
-            if (sessions.get(i).getKey() == key) sessions.remove(i);
-        }
+        sessions.remove(findSessionByKey(key));
     }
 }
