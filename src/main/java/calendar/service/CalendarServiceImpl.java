@@ -2,7 +2,9 @@ package calendar.service;
 
 import calendar.model.CEvent;
 import calendar.model.User;
+import calendar.model.UserFile;
 import calendar.repository.EventRepository;
+import calendar.repository.UserFileRepository;
 import calendar.repository.UserRepository;
 import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,12 +22,15 @@ import java.util.Collection;
 public class CalendarServiceImpl implements CalendarService {
     private EventRepository eventRepository;
     private UserRepository userRepository;
+    private UserFileRepository userFileRepository;
 
     @Autowired
     public CalendarServiceImpl(EventRepository eventRepository,
-                               UserRepository userRepository) {
+                               UserRepository userRepository,
+                               UserFileRepository userFileRepository) {
         this.eventRepository = eventRepository;
         this.userRepository = userRepository;
+        this.userFileRepository = userFileRepository;
     }
 
     @Override
@@ -100,5 +105,47 @@ public class CalendarServiceImpl implements CalendarService {
         User user = null;
         user = userRepository.findByLogin(login);
         return (user != null);
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public UserFile findFileById(int id) throws DataAccessException {
+        return userFileRepository.findById(id);
+    }
+
+    @Override
+    @Transactional
+    public void addNewFile(String name, int size, int userId) throws DataAccessException {
+        try {
+            User user = userRepository.findById(userId);
+            UserFile userFile = new UserFile();
+            userFile.setId(null);
+            userFile.setFname(name);
+            userFile.setUpl_date(DateTime.now());
+            userFile.setUser(user);
+            userFile.setFsize(size);
+            userFileRepository.save(userFile);
+        }
+        catch (NullPointerException e) {
+            throw new DataAccessResourceFailureException(e.toString());
+        }
+    }
+
+    @Override
+    @Transactional
+    public void saveUserFile(UserFile userFile) throws DataAccessException {
+        userFileRepository.save(userFile);
+    }
+
+    @Override
+    @Transactional
+    public Collection<UserFile> getFilesByLinkedId(int id) throws DataAccessException {
+        return userFileRepository.findByLinkedUserId(id);
+    }
+
+    @Override
+    @Transactional
+    public void deleteFileId(int id) throws DataAccessException {
+        userFileRepository.deleteById(id);
     }
 }

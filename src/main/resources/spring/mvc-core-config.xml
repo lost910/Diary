@@ -45,6 +45,10 @@
         </property>
     </bean>
 
+    <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+        <property name="maxUploadSize" value="10000000"/>
+    </bean>
+
     <!--
         - Message source for this context, loaded from localized "messages_xx" files.
         - Files are stored inside src/main/resources
@@ -63,5 +67,4 @@
         <property name="warnLogCategory" value="warn"/>
         <!-- needed otherwise exceptions won't be logged anywhere -->
     </bean>
-
 </beans>

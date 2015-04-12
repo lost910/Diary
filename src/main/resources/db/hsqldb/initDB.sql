@@ -15,3 +15,12 @@ CREATE TABLE events_table (
   linked_user_id INTEGER
 );
 ALTER TABLE events_table ADD CONSTRAINT fk_linked_user FOREIGN KEY (linked_user_id) REFERENCES users_table (id);
+
+CREATE TABLE files_table (
+  id INTEGER IDENTITY PRIMARY KEY,
+  fname VARCHAR(512),
+  fsize INTEGER,
+  upl_date DATETIME,
+  user_id INTEGER
+);
+ALTER TABLE files_table ADD CONSTRAINT fk_user_id FOREIGN KEY (user_id) REFERENCES users_table (id);

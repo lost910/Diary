@@ -23,6 +23,9 @@ public class User extends BaseEntity {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
     private Set<CEvent> eventSet;
 
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
+    private Set<UserFile> userFiles;
+
     public void setLogin(String login) {
         this.login = login;
     }
@@ -63,6 +66,35 @@ public class User extends BaseEntity {
         for(CEvent e : getEventSetInternal()) {
             if(e.getId() == id) {
                 return e;
+            }
+        }
+        return null;
+    }
+
+    protected void SetUserFilesInternal(Set<UserFile> userFiles) {
+        this.userFiles = userFiles;
+    }
+
+    protected Set<UserFile> getUserFilesInternal() {
+        if(userFiles == null) {
+            userFiles = new HashSet<UserFile>();
+        }
+        return userFiles;
+    }
+
+    protected List<UserFile> getUserFiles() {
+        return new ArrayList<UserFile>(getUserFilesInternal());
+    }
+
+    public void addUserFile(UserFile userFile) {
+        getUserFilesInternal().add(userFile);
+        userFile.setUser(this);
+    }
+
+    public UserFile getUserFile(int id) {
+        for(UserFile uf : getUserFilesInternal()) {
+            if(uf.getId() == id) {
+                return uf;
             }
         }
         return null;

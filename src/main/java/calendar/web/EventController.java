@@ -3,6 +3,7 @@ package calendar.web;
 import calendar.model.CEvent;
 import calendar.model.Events;
 import calendar.model.User;
+import calendar.model.UserFile;
 import calendar.service.CalendarService;
 import calendar.util.CSessionManager;
 import calendar.util.UTF8Plantain;
@@ -60,9 +61,11 @@ public class EventController {
         CSessionManager.CSession s = CSessionManager.findSessionByKey(s_key);
         int u_id = s.getUser_id();
 
+        Collection<UserFile> files = cs.getFilesByLinkedId(u_id);
         events.getCEventList().addAll(this.cs.getEventsByLinkedId(u_id));
 
         model.put("events", events);
+        model.put("files", files);
         model.put("session_key", s_key);
         model.put("user_login", cs.findUserById(u_id).getLogin());
         return "welcome";

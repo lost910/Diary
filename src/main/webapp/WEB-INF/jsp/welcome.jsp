@@ -97,9 +97,10 @@
         <div class="rightBar">
             <img src="${file}" width="100" height="80"/>
             <p>Личное файловое хранилище.</p>
-            <form method="POST" action="/put" enctype="multipart/form-data">
-                <input id="FileValue" type="text"/>
-                <p class="file_upload">Открыть<input type="file" onchange="document.getElementById('FileValue').value = this.value"/></p>
+            <form method="POST" action="/${session_key}/uploadFile" enctype="multipart/form-data">
+                <input id="FileValue" type="text" name="fname"/>
+                <p class="file_upload">Открыть<input type="file" name="file"
+                    onchange="document.getElementById('FileValue').value = this.value"/></p>
                 <input type="submit" value="Загрузить" />
             </form>
             <ul class="rightBarlist">
