@@ -99,8 +99,8 @@
             <p>Личное файловое хранилище.</p>
             <form method="POST" action="/put" enctype="multipart/form-data">
                 <input id="FileValue" type="text"/>
-                <span class="file_upload">+<input type="file" onchange="document.getElementById('FileValue').value = this.value"/></span>
-                <input type="submit" value="Добавить" />
+                <p class="file_upload">Открыть<input type="file" onchange="document.getElementById('FileValue').value = this.value"/></p>
+                <input type="submit" value="Загрузить" />
             </form>
             <ul class="rightBarlist">
                 <li>Relaxation.pdf<br /><span class="fileclass">pdf / 500kb</span>

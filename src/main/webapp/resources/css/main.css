@@ -353,7 +353,8 @@ h1{
     line-height: 1;
     text-align: center;
     padding: 1px;
-    width: 10px;
+    width: 97px;
+    margin-left: 25px;
     background-color: #97CAF2;
     color: #fff;
 }
