@@ -3,6 +3,7 @@ package calendar.repository.jpa;
 import calendar.model.UserFile;
 import calendar.repository.UserFileRepository;
 import org.springframework.dao.DataAccessException;
+import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -12,6 +13,7 @@ import java.util.Collection;
 /**
  * Created by Marat on 12.04.2015.
  */
+@Repository
 public class JpaUserFileRepository implements UserFileRepository {
     @PersistenceContext
     private EntityManager em;

@@ -37,9 +37,9 @@ public class UserFileController {
         dataBinder.setDisallowedFields("id");
     }
 
-    @RequestMapping(value = "welcome/{sessionKey}/deleteFile", method = RequestMethod.GET)
+    @RequestMapping(value = "welcome/{sessionKey}/deleteFile/{file_id}", method = RequestMethod.GET)
     public String deleteFile(@PathVariable("sessionKey") long s_key,
-                             @RequestParam("file_id") int id) {
+                             @PathVariable("file_id") int id) {
         cs.deleteFileId(id);
         return "redirect:/";
     }
@@ -76,7 +76,7 @@ public class UserFileController {
             String t = "";
             int i, pos = 0;
             for(i = 0; i < fname.length(); i++) {
-                if(fname.charAt(i) == '/') {
+                if(fname.charAt(i) == '\\') {
                     pos = i + 1;
                 }
             }
@@ -85,7 +85,7 @@ public class UserFileController {
                 t += fname.charAt(i);
             }
 
-            UserFileUtils.writeFile(file.getBytes(), fname);
+            UserFileUtils.writeFile(file.getBytes(), t);
 
             cs.addNewFile(t, file.getBytes().length, user_id);
         }

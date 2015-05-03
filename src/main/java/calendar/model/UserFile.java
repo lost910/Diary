@@ -20,7 +20,7 @@ public class UserFile extends BaseEntity {
     protected String fname;
 
     @Column(name = "fsize")
-    @NotEmpty
+    @NotNull
     protected int fsize;
 
     @Column(name = "upl_date")

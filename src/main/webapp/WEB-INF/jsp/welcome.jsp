@@ -64,6 +64,7 @@
 <spring:url value="/resources/images/exit.png" var="exit"/>
 <spring:url value="/resources/images/file.png" var="file"/>
 <spring:url value="/resources/images/del.png" var="del"/>
+<spring:url value="/resources/userfiles/" var="filesFolder"/>
 <body>
 <div id="header">
     <div class="headerWrap">
@@ -97,16 +98,22 @@
         <div class="rightBar">
             <img src="${file}" width="100" height="80"/>
             <p>Личное файловое хранилище.</p>
-            <form method="POST" action="/${session_key}/uploadFile" enctype="multipart/form-data">
+            <form method="POST" action="${session_key}/uploadFile" enctype="multipart/form-data">
                 <input id="FileValue" type="text" name="fname"/>
                 <p class="file_upload">Открыть<input type="file" name="file"
                     onchange="document.getElementById('FileValue').value = this.value"/></p>
                 <input type="submit" value="Загрузить" />
             </form>
             <ul class="rightBarlist">
-                <li>Relaxation.pdf<br /><span class="fileclass">pdf / 500kb</span>
-                    <a class="delfile" href="#"><img src="${del}" width="16" height="16"/></a>
-                </li>
+                <c:forEach items="${files}" var="item">
+                    <li>
+                        <a href="${filesFolder}${item.fname}"><c:out value="${item.fname}"/></a><br />
+                        <span class="fileclass">
+                            <fmt:formatNumber type="number" maxFractionDigits="1" value="${item.fsize/1024}" /> kb /
+                            <joda:format value="${item.upl_date}" pattern="dd.MM.yyyy HH:mm"/></span>
+                        <a class="delfile" href="${session_key}/deleteFile/${item.id}"><img src="${del}" width="16" height="16"/></a>
+                    </li>
+                </c:forEach>
             </ul>
         </div>
     </div>
